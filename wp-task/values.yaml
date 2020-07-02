@@ -1,19 +1,21 @@
 # mysql
 image:
+  mname: mysql
   version: 5.6
-sts-name: mysql
+sts_name: mysql
 
 # wordpress
-wp-name: wordpress
-wp-version: 4.8-apache
+wname: wordpr
+wp_name: wordpress
+wp_version: 4.8-apache
 
 # service
-lb-name: wp-lb
+lb_name: wp-lb
 
 # secret
-sec-name: mysecret
+sec_name: mysecret
 user: admin
 password: passw0rd
 
 # ingress
-ing-name: tls-ingress
+ing_name: tls-ingress

@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: "2020-06-16T01:17:32Z"
   labels:
     name: wordpress
-  name: {{.Values.lb-name}}
+  name: {{.Values.lb_name}}
   namespace: default
   resourceVersion: "4761380"
   selfLink: /api/v1/namespaces/default/services/wp-lb

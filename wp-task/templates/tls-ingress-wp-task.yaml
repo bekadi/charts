@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{.Values.ing-name}}
+  name: {{.Values.ing_name}}
 spec:
   tls:
   - secretName: tls-ingress-scrt-wp-task
