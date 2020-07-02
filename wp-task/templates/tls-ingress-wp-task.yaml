@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{.Values.ing-name}}
+spec:
+  tls:
+  - secretName: tls-ingress-scrt-wp-task
+  backend:
+    serviceName: word-lb
+    servicePort: 80
+

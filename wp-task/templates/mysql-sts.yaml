@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-lb
+  labels:
+    app: mysql
+spec:
+  ports:
+  - port: 80
+    name: mysql
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{.Values.sts-name}}
+spec:
+  serviceName: mysql-lb
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db-myclaim
+  template:
+    metadata:
+      labels:
+        name: db-myclaim
+    spec:
+      spec:
+      securityContext:
+        runAsUser: 65534
+        fsGroup: 65534 
+      volumes:
+      - name: myclaim
+        persistentVolumeClaim:
+          claimName: myclaim
+      containers:
+      - name: mysql
+        image: mysql: {{.Values.image.version}}
+        env:
+        - name: MYSQL_DATABASE
+          value: myclaim
+        - name: MYSQL_USER
+          value: wp-user-adilet
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        - name: MYSQL_PASSWORD
+          value: password
+        - name: SECRET
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: admin
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        volumeMounts:
+        - name: myclaim
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: myclaim
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "my-storage-class"
+      resources:
+        requests:
+          storage: 1Gi

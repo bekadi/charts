@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-06-16T00:53:36Z"
+  labels:
+    name: db-myclaim
+  name: mysql-lb
+  namespace: default
+  resourceVersion: "4755835"
+  selfLink: /api/v1/namespaces/default/services/mysql-lb
+  uid: cf3a8a73-af6b-11ea-8d6c-42010a800050
+spec:
+  clusterIP: 10.0.2.71
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    name: db-myclaim
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
